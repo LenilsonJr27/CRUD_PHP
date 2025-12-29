@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'conexao.php';
 ?>
 
@@ -15,6 +16,7 @@ require 'conexao.php';
 <body>
     <?php include('navbar.php'); ?>
     <div class="mt-4">
+        <?php include('mensagem.php'); ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
