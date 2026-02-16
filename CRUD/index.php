@@ -37,19 +37,31 @@ require 'conexao.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>junior</td>
-                                    <td>junior@gmail.com</td>
-                                    <td>27/11/2003</td>
-                                    <td>
-                                        <a href="" class="btn btn-secondary btn-sm">Visualizar</a>
-                                        <a href="" class="btn btn-success btn-sm">Editar</a>
-                                        <form action="" method="POST" class="d-inline">
-                                            <button type="submit" name="delete" value="1" class="btn btn-danger btn-sm">Excluir</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                <?php
+                                $sql = 'SELECT * FROM usuarios';
+                                $usuarios = mysqli_query($conexao, $sql);
+                                if (mysqli_num_rows($usuarios) > 0) {
+                                    foreach ($usuarios as $usuario) {
+                                ?>
+                                        <tr>
+                                            <td><?= $usuario['id'] ?></td>
+                                            <td><?= $usuario['nome'] ?></td>
+                                            <td><?= $usuario['email'] ?></td>
+                                            <td><?= date('d/m/Y', strtotime($usuario['data_nascimento'])) ?></td>
+                                            <td>
+                                                <a href="usuario-view.php?id=<?= $usuario['id'] ?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                                                <a href="" class="btn btn-success btn-sm">Editar</a>
+                                                <form action="" method="POST" class="d-inline">
+                                                    <button type="submit" name="delete" value="1" class="btn btn-danger btn-sm">Excluir</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                } else {
+                                    echo '<h5>Nenhum usuário encontrado</h5>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
